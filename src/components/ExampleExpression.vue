@@ -23,6 +23,23 @@ const message = ref("Hello World")
 // const output = computed(() => {
 //   return ok.value ? message.value : ""
 // })
+
+function sayHello() {
+  alert('Hello Vue from Vue function');
+}
+
+const date = ref('2024-01-01')
+function toTitleDate(d) {
+  return new Date(d).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
+}
+
+function formatDate(d) {
+  return new Date(d).toLocaleDateString('en-GB')
+}
 </script>
 
 <template>
@@ -45,6 +62,15 @@ const message = ref("Hello World")
 
   <span v-if="ok">{{ message }}</span>
   <span v-else>No message</span>
+  <br>
+  <button @click="sayHello">Click Me</button>
+
+  <br>
+  {{ formatDate(date) }}
+  <br>
+  <time :title="toTitleDate(date)" :datetime="date">
+    {{ formatDate(date) }}
+  </time>
 </template>
 
 <style scoped>
