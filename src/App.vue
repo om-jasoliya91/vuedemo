@@ -2,6 +2,11 @@
 import { ref } from 'vue'
 
 const rawHtml = ref("<b style='color:red;'>This is bold text</b>")
+const isButtonDisabled = ref(false)
+
+function handleClick() {
+  isButtonDisabled.value = true
+}
 
 // const count = ref(0)
 // const username = ref('om')
@@ -22,6 +27,10 @@ const counter = useCounterStore()
     <!-- here v-html is use for Renders HTML inside a variable like => const rawHtml = ref("<b>This is bold text</b>") -->
     <p>Using v-html directive: <span v-html="rawHtml"></span></p>
   </div>
+
+  <div v-bind:id="dynamicId"></div>
+  <div :id="hello"></div> <!-- it is shorthand syntax of v-bind-->
+  <button :disabled="isButtonDisabled" @click="handleClick">Disabled</button>
 </template>
 
 <style scoped></style>
