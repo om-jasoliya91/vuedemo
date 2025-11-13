@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 //Reactive Variables
 const count = ref(5)
@@ -14,6 +14,15 @@ const quantity = ref(3)
 function increase() {
   count.value++
 }
+
+const id = ref(10)
+
+const ok = ref(true)
+const message = ref("Hello World")
+
+// const output = computed(() => {
+//   return ok.value ? message.value : ""
+// })
 </script>
 
 <template>
@@ -29,6 +38,13 @@ function increase() {
   <button @click="increase">
     Increase Count (Current :{{ count }})
   </button>
+
+  <div :id="`list-${id}`">{{ id }}</div>
+
+  <!-- <span>{{ output }}</span> -->
+
+  <span v-if="ok">{{ message }}</span>
+  <span v-else>No message</span>
 </template>
 
 <style scoped>
