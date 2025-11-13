@@ -40,6 +40,8 @@ function toTitleDate(d) {
 function formatDate(d) {
   return new Date(d).toLocaleDateString('en-GB')
 }
+
+const url = ref('https://google.com')
 </script>
 
 <template>
@@ -71,6 +73,8 @@ function formatDate(d) {
   <time :title="toTitleDate(date)" :datetime="date">
     {{ formatDate(date) }}
   </time>
+  <br>
+  <a :href="url">google</a>
 </template>
 
 <style scoped>
