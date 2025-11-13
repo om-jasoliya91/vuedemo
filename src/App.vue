@@ -17,6 +17,13 @@ function handleClick() {
 
 import { useCounterStore } from './stores/counter';
 const counter = useCounterStore()
+
+// Dynamically Binding Multiple Attributes
+const objectOfAttrs = {
+  id: 'container',
+  class: 'wrapper',
+  style: 'background-color:green; margin-top:10px;'
+}
 </script>
 
 <template>
@@ -31,6 +38,8 @@ const counter = useCounterStore()
   <div v-bind:id="dynamicId"></div>
   <div :id="hello"></div> <!-- it is shorthand syntax of v-bind-->
   <button :disabled="isButtonDisabled" @click="handleClick">Disabled</button>
+
+  <div v-bind="objectOfAttrs">hello</div>
 </template>
 
 <style scoped></style>
