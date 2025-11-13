@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue' // correct import
-import AboutView from '@/views/AboutView.vue'
+import HomeView from '@/components/viewfile/HomeView.vue'
+import AboutView from '@/components/viewfile/AboutView.vue'
+import WelcomeBack from '@/components/WelcomeBack.vue'
 
 const routes = [
-  { path: '/', name: 'Home', component: HomeView }, // correct path
-  { path: '/about', name: 'About', component: AboutView }, // <-- new page
+  { path: '/', name: 'Welcome', component: WelcomeBack },
+  { path: '/home', name: 'Home', component: HomeView },
+  { path: '/about', name: 'About', component: AboutView },
 ]
 
 const router = createRouter({
