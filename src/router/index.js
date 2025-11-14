@@ -5,6 +5,7 @@ import WelcomeBack from '@/components/WelcomeBack.vue'
 import ComputedView from '@/components/viewfile/ComputedView.vue'
 import BindView from '@/components/viewfile/BindView.vue'
 import ConditionView from '@/components/viewfile/ConditionView.vue'
+import VforView from '@/components/viewfile/VforView.vue'
 
 const routes = [
   { path: '/', name: 'Welcome', component: WelcomeBack },
@@ -13,6 +14,7 @@ const routes = [
   { path: '/computed', name: 'Computed', component: ComputedView },
   { path: '/bind', name: 'Bind', component: BindView },
   { path: '/condition', name: 'Condition', component: ConditionView },
+  { path: '/for', name: 'Vfor', component: VforView },
 ]
 
 const router = createRouter({
