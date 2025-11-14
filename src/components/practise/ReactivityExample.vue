@@ -39,6 +39,13 @@ const proxy = reactive(raw)
 console.log(proxy === raw) // false
 console.log(reactive(raw) === proxy) //true
 
+const books = reactive([ref('Vue 3 Guide')])
+console.log(books[0])
+console.log(books[0].value)
+books[0].value = "Vue 3 Mastary"
+console.log('Updated:', books[0].value)
+console.log(books[0])
+console.log(books[0].value)
 </script>
 
 <template>
