@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 //Reactive state
 const isActive = ref(true)
@@ -18,6 +18,44 @@ function toggleActive() {
 
 function toggleError() {
   isError.value = !isError.value
+}
+
+//Binding Inline Style
+//Reactive Values
+const color = ref('blue')
+const size = ref(18)
+const isHighlight = ref(false)
+
+//Style an an object
+const objectStyle = computed(() => ({
+  color: color.value,
+  size: size.value + 'px',
+  padding: '8px',
+  border: '4px'
+}))
+
+// Another object for array style binding
+const highlightStyle = computed(() => ({
+  backgroundColor: isHighlight.value ? 'yellow' : 'purple',
+  border: isHighlight.value ? '2px solid orange' : '2px solid green'
+}))
+
+// Base static style
+const baseStyle = {
+  display: 'inline-block',
+  padding: '10px'
+}
+
+// Buttons
+function toggleHighlight() {
+  isHighlight.value = !isHighlight.value
+}
+function increaseSize() {
+  size.value += 2
+}
+
+function changeColor() {
+  color.value = color.value === 'blue' ? 'green' : 'blue'
 }
 </script>
 
@@ -45,6 +83,32 @@ function toggleError() {
 
   <button @click="toggleActive">Active</button>
   <button @click="toggleError">Error</button>
+
+  <!-- inline style binding  -->
+  <h1>Combined Inline Style Example</h1>
+
+  <!-- object tyle binding  -->
+  <p :style="objectStyle">
+    object binding-> color: {{ color }},size:{{ size }}px
+  </p>
+
+  <!-- Array style Binding  -->
+  <p :style="[baseStyle, highlightStyle]">
+    Array Binding → highlight:{{ highlightStyle }}
+  </p>
+  <!-- Combined (object + array) -->
+  <p :style="[
+    objectStyle,
+    highlightStyle,
+    { marginTop: '15px', cursor: 'pointer' }
+  ]">
+    Combined Binding (object + array + extra)
+  </p>
+
+  <!-- Controls -->
+  <button @click="changeColor">Toggle Color</button>
+  <button @click="increaseSize">Increase Font Size</button>
+  <button @click="toggleHighlight">Toggle Highlight</button>
 </template>
 
 <style scoped>
@@ -75,5 +139,10 @@ function toggleError() {
 .error {
   border: 2px solid red;
   color: red;
+}
+
+button {
+  margin-right: 10px;
+  padding: 6px 12px;
 }
 </style>
