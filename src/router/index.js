@@ -6,6 +6,7 @@ import ComputedView from '@/components/viewfile/ComputedView.vue'
 import BindView from '@/components/viewfile/BindView.vue'
 import ConditionView from '@/components/viewfile/ConditionView.vue'
 import VforView from '@/components/viewfile/VforView.vue'
+import EventhandleView from '@/components/viewfile/EventhandleView.vue'
 
 const routes = [
   { path: '/', name: 'Welcome', component: WelcomeBack },
@@ -15,6 +16,7 @@ const routes = [
   { path: '/bind', name: 'Bind', component: BindView },
   { path: '/condition', name: 'Condition', component: ConditionView },
   { path: '/for', name: 'Vfor', component: VforView },
+  { path: '/event', name: 'Event', component: EventhandleView },
 ]
 
 const router = createRouter({
