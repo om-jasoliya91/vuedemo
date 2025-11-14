@@ -48,6 +48,21 @@ const fullName = computed({
     [firstName.value, lastName.value] = newValue.split(' ')
   }
 })
+
+//getting the previous Value
+const count = ref(2)
+let previousValue = count.value
+const alwaysSmall = computed({
+  get() {
+    if (count.value <= 3) {
+      previousValue = count.value
+    }
+    return previousValue
+  },
+  set(newValue) {
+    count.value = newValue * 2
+  }
+})
 </script>
 
 <template>
@@ -64,6 +79,8 @@ const fullName = computed({
   <p>Live Time (updates every sec): {{ nowCurrent }}</p>
 
   <p>{{ fullName }}</p>
+
+  <p>{{ alwaysSmall }}</p>
 </template>
 
 <style scoped></style>
