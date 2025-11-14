@@ -1,5 +1,5 @@
 <script setup>
-import { computed, reactive } from 'vue';
+import { ref, computed, onMounted, onUnmounted, reactive } from 'vue';
 
 const author = reactive({
   name: 'om',
@@ -20,6 +20,19 @@ const now = computed(() => {
   return new Date().toLocaleString()
   // return new Date().toLocaleString()
 })
+
+const nowCurrent = ref(new Date().toLocaleTimeString())
+let timer = null
+
+onMounted(() => {
+  timer = setInterval(() => {
+    nowCurrent.value = new Date().toLocaleTimeString()
+  }, 1000) //updates every 1 seconds
+})
+
+onUnmounted(() => {
+  clearInterval(timer)
+})
 </script>
 
 <template>
@@ -32,6 +45,8 @@ const now = computed(() => {
   <p>{{ publishBookMessage }}</p>
 
   <p>{{ now }}</p>
+
+  <p>Live Time (updates every sec): {{ nowCurrent }}</p>
 </template>
 
 <style scoped></style>
