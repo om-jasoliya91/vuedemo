@@ -33,6 +33,21 @@ onMounted(() => {
 onUnmounted(() => {
   clearInterval(timer)
 })
+
+const firstName = ref('om')
+const lastName = ref('jasoliya')
+
+const fullName = computed({
+  //getter
+  get() {
+    return firstName.value + ' ' + lastName.value
+  },
+  //setter
+  set(newValue) {
+    //we are usingdestruting assignment syntax here.
+    [firstName.value, lastName.value] = newValue.split(' ')
+  }
+})
 </script>
 
 <template>
@@ -47,6 +62,8 @@ onUnmounted(() => {
   <p>{{ now }}</p>
 
   <p>Live Time (updates every sec): {{ nowCurrent }}</p>
+
+  <p>{{ fullName }}</p>
 </template>
 
 <style scoped></style>
