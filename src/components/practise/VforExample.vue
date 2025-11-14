@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 
 
 // simple text from parent
@@ -25,6 +25,54 @@ const todos = ref([
   { id: 2, name: "Wash car", isComplete: true },
   { id: 3, name: "Study Vue.js", isComplete: false }
 ])
+
+// reactive list
+const fruits = ref(["Apple", "Banana", "Orange"])
+
+// push() → add item at end
+function addFruit() {
+  fruits.value.push("Mango")
+}
+
+// pop() → remove last item
+function removeLast() {
+  fruits.value.pop()
+}
+
+// shift() → remove first item
+function removeFirst() {
+  fruits.value.shift()
+}
+
+// unshift() → add item at start
+function addAtStart() {
+  fruits.value.unshift("Pineapple")
+}
+
+// splice() → remove or replace items
+function spliceExample() {
+  // remove 1 item at index 1 and replace with "Grapes"
+  fruits.value.splice(1, 1, "Grapes")
+}
+
+// sort() → alphabetical sort
+function sortFruits() {
+  fruits.value.sort()
+}
+
+// reverse() → reverse array order
+function reverseFruits() {
+  fruits.value.reverse()
+}
+
+
+
+const numbers = ref([1, 2, 3, 4, 5])
+
+const evenNumbers = computed(() => {
+  return numbers.value.filter(n => n % 2 === 0)
+})
+
 
 
 </script>
@@ -76,7 +124,21 @@ That means the v-if condition will not have access to variables from the scope o
     </template>
   </ul>
 
+  <h1>Array Methods Example in Vue 3</h1>
 
+  <h3>Current Fruits:</h3>
+  <p>{{ fruits }}</p>
+
+  <button @click="addFruit">push() → Add Mango</button>
+  <button @click="removeLast">pop() → Remove Last</button>
+  <button @click="removeFirst">shift() → Remove First</button>
+  <button @click="addAtStart">unshift() → Add Pineapple</button>
+  <button @click="spliceExample">splice() → Replace Banana</button>
+  <button @click="sortFruits">sort() → Sort A-Z</button>
+  <button @click="reverseFruits">reverse() → Reverse Order</button>
+
+  <h1>Even Number</h1>
+  <p>{{ evenNumbers }}</p>
 </template>
 
 <style scoped>
