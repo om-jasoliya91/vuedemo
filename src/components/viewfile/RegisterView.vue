@@ -19,6 +19,7 @@ const country = ref('')
 // loader state
 const loading = ref(false)
 
+const hobbies = ref([])
 // SIMPLE VALIDATION
 
 // store error messages
@@ -28,6 +29,7 @@ const errors = ref({
   password: '',
   gender: '',
   country: '',
+  hobbies: '',
 })
 
 // simple validation function
@@ -35,7 +37,7 @@ function simpleValidate() {
   let valid = true
 
   // reset previous errors
-  errors.value = { name: '', email: '', password: '', gender: '', country: '' }
+  errors.value = { name: '', email: '', password: '', gender: '', country: '', hobbies: '' }
 
   // name validation
   if (!name.value) {
@@ -64,6 +66,11 @@ function simpleValidate() {
   // select validation (must pick a country)
   if (!country.value) {
     errors.value.country = 'Please choose a country'
+    valid = false
+  }
+
+  if (!hobbies.value) {
+    errors.value.hobbies = 'Please choose atleast 1 checkbox'
     valid = false
   }
 
@@ -165,7 +172,13 @@ async function handleSubmit() {
 
           <small class="text-danger">{{ errors.country }}</small>
         </div>
-
+        <!-- Hobbies->cricket,football,basketball -->
+        <div class="mb-3">
+          <label for="form-label">Hobbies:</label>
+          <input type="checkbox" value="cricket" v-model="hobbies" />cricket
+          <input type="checkbox" value="football" v-model="hobbies" />football
+          <input type="checkbox" value="basketball" v-model="hobbies" />basketball
+        </div>
         <!-- CHECKBOX: AGREE TERMS -->
         <div class="mb-4">
           <!-- v-model returns true/false -->
@@ -192,6 +205,7 @@ async function handleSubmit() {
       <p><strong>Gender:</strong> {{ gender }}</p>
       <p><strong>Country:</strong> {{ country }}</p>
       <p><strong>Agreed:</strong> {{ agree }}</p>
+      <p><strong>Hobbie:</strong>{{ hobbies }}</p>
     </div>
   </div>
 </template>
