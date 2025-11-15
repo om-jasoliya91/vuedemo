@@ -8,6 +8,7 @@ import ConditionView from '@/components/viewfile/ConditionView.vue'
 import VforView from '@/components/viewfile/VforView.vue'
 import EventhandleView from '@/components/viewfile/EventhandleView.vue'
 import RegisterView from '@/components/viewfile/RegisterView.vue'
+import WatchersView from '@/components/viewfile/WatchersView.vue'
 
 const routes = [
   { path: '/', name: 'Welcome', component: WelcomeBack },
@@ -19,6 +20,7 @@ const routes = [
   { path: '/for', name: 'Vfor', component: VforView },
   { path: '/event', name: 'Event', component: EventhandleView },
   { path: '/register', name: 'Register', component: RegisterView },
+  { path: '/watcher', name: 'Watcher', component: WatchersView },
 ]
 
 const router = createRouter({
