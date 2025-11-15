@@ -7,6 +7,7 @@ import BindView from '@/components/viewfile/BindView.vue'
 import ConditionView from '@/components/viewfile/ConditionView.vue'
 import VforView from '@/components/viewfile/VforView.vue'
 import EventhandleView from '@/components/viewfile/EventhandleView.vue'
+import RegisterView from '@/components/viewfile/RegisterView.vue'
 
 const routes = [
   { path: '/', name: 'Welcome', component: WelcomeBack },
@@ -17,6 +18,7 @@ const routes = [
   { path: '/condition', name: 'Condition', component: ConditionView },
   { path: '/for', name: 'Vfor', component: VforView },
   { path: '/event', name: 'Event', component: EventhandleView },
+  { path: '/register', name: 'Register', component: RegisterView },
 ]
 
 const router = createRouter({
