@@ -1,13 +1,24 @@
 <script setup>
-const props = defineProps({
-  data: Object
+// const props = defineProps({
+//   data: Object,
+// })
+
+const sayHello = () => {
+  console.log('Hello from child.')
+}
+
+//Expose method so parent can call it
+defineExpose({
+  sayHello,
 })
 </script>
 
 <template>
-  <div class="card">
+  <!-- <div class="card">
     <h4>{{ data.label }}</h4>
-  </div>
+  </div> -->
+
+  <div>Child Component loaded</div>
 </template>
 
 <style scoped>
