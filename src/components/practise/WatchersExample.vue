@@ -41,9 +41,12 @@ watch(
   user,
   (newValue) => {
     // console.log('Deep Watcher triggered:', newValue)
-    console.log('Deep Watcher triggered', JSON.parse(JSON.stringify(newValue)))
+    // console.log('Deep Watcher triggered', JSON.parse(JSON.stringify(newValue)))
+    // console.log('Eager Watcher triggered:', newValue)
+    console.log(JSON.parse(JSON.stringify(newValue)))
   },
-  { deep: true }, //important
+  // { deep: true }, //important
+  { immediate: true },
 )
 </script>
 

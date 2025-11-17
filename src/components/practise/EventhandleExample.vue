@@ -65,31 +65,49 @@ function scrollHandler() {
 }
 
 // Keyboard Events
-const keyMessage = ref("Press any key in the input below...")
+const keyMessage = ref('Press any key in the input below...')
 
-function onEnter() { keyMessage.value = "ENTER key pressed" }
-function onTab() { keyMessage.value = "TAB key pressed" }
-function onDelete() { keyMessage.value = "DELETE/BACKSPACE key pressed" }
-function onEsc() { keyMessage.value = "ESC key pressed" }
-function onSpace() { keyMessage.value = "SPACE key pressed" }
-function onUp() { keyMessage.value = "UP ARROW key pressed" }
-function onDown() { keyMessage.value = "DOWN ARROW key pressed" }
-function onLeft() { keyMessage.value = "LEFT ARROW key pressed" }
-function onRight() { keyMessage.value = "RIGHT ARROW key pressed" }
+function onEnter() {
+  keyMessage.value = 'ENTER key pressed'
+}
+function onTab() {
+  keyMessage.value = 'TAB key pressed'
+}
+function onDelete() {
+  keyMessage.value = 'DELETE/BACKSPACE key pressed'
+}
+function onEsc() {
+  keyMessage.value = 'ESC key pressed'
+}
+function onSpace() {
+  keyMessage.value = 'SPACE key pressed'
+}
+function onUp() {
+  keyMessage.value = 'UP ARROW key pressed'
+}
+function onDown() {
+  keyMessage.value = 'DOWN ARROW key pressed'
+}
+function onLeft() {
+  keyMessage.value = 'LEFT ARROW key pressed'
+}
+function onRight() {
+  keyMessage.value = 'RIGHT ARROW key pressed'
+}
 
 // Mouse Buttons Example
-const clickMsg = ref("Click the box using left, right, or middle mouse button")
+const clickMsg = ref('Click the box using left, right, or middle mouse button')
 
 function leftClick() {
-  clickMsg.value = "LEFT mouse button clicked"
+  clickMsg.value = 'LEFT mouse button clicked'
 }
 
 function rightClick() {
-  clickMsg.value = "RIGHT mouse button clicked"
+  clickMsg.value = 'RIGHT mouse button clicked'
 }
 
 function middleClick() {
-  clickMsg.value = "MIDDLE mouse button clicked"
+  clickMsg.value = 'MIDDLE mouse button clicked'
 }
 </script>
 
@@ -113,7 +131,7 @@ function middleClick() {
   <p><strong>Message:</strong> {{ message }}</p>
 
   <!-- .stop -->
-  <div @click="parentClick" style="padding:20px; border:1px solid #444;">
+  <div @click="parentClick" style="padding: 20px; border: 1px solid #444">
     Parent (.stop)
     <button @click.stop="childClick">Child (.stop)</button>
   </div>
@@ -128,8 +146,17 @@ function middleClick() {
   <hr />
 
   <!-- .self -->
-  <div @click.self="boxClick"
-    style="width:200px; height:80px; background:#ddd; display:flex; align-items:center; justify-content:center;">
+  <div
+    @click.self="boxClick"
+    style="
+      width: 200px;
+      height: 80px;
+      background: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+  >
     Click Inside (.self)
     <button>Button</button>
   </div>
@@ -137,7 +164,7 @@ function middleClick() {
   <hr />
 
   <!-- .capture -->
-  <div @click.capture="captureParent" style="padding:20px; border:1px solid green;">
+  <div @click.capture="captureParent" style="padding: 20px; border: 1px solid green">
     Parent (.capture)
     <button @click="captureChild">Child</button>
   </div>
@@ -150,43 +177,85 @@ function middleClick() {
   <hr />
 
   <!-- .passive -->
-  <div style="height:100px; overflow:auto; border:1px solid #444;" @scroll.passive="scrollHandler">
-    <div style="height:300px;">Scroll inside me (.passive)</div>
+  <div
+    style="height: 100px; overflow: auto; border: 1px solid #444"
+    @scroll.passive="scrollHandler"
+  >
+    <div style="height: 300px">Scroll inside me (.passive)</div>
   </div>
 
   <h1>Keyboard Event Modifiers Example</h1>
 
   <p><strong>Message:</strong> {{ keyMessage }}</p>
 
-  <input type="text" placeholder="Press a key..." style="padding:10px; width:300px; font-size:16px; margin-bottom:20px;"
-    @keyup.enter="onEnter" @keyup.tab="onTab" @keyup.delete="onDelete" @keyup.esc="onEsc" @keyup.space="onSpace"
-    @keyup.up="onUp" @keyup.down="onDown" @keyup.left="onLeft" @keyup.right="onRight" />
+  <input
+    type="text"
+    placeholder="Press a key..."
+    style="padding: 10px; width: 300px; font-size: 16px; margin-bottom: 20px"
+    @keyup.enter="onEnter"
+    @keyup.tab="onTab"
+    @keyup.delete="onDelete"
+    @keyup.esc="onEsc"
+    @keyup.space="onSpace"
+    @keyup.up="onUp"
+    @keyup.down="onDown"
+    @keyup.left="onLeft"
+    @keyup.right="onRight"
+  />
 
   <h1>Mouse Button Modifiers Example</h1>
 
   <p><strong>Message:</strong> {{ clickMsg }}</p>
 
   <!-- IMPORTANT: Prevent browser menu for middle/right -->
-  <div @contextmenu.prevent style="display:flex; gap:10px; margin-top:20px;">
-
+  <div @contextmenu.prevent style="display: flex; gap: 10px; margin-top: 20px">
     <!-- LEFT -->
-    <div @mousedown.left="leftClick" style="width:80px; height:50px; background:#d4ffd4; border:1px solid #333;
-             display:flex; align-items:center; justify-content:center;">
+    <div
+      @mousedown.left="leftClick"
+      style="
+        width: 80px;
+        height: 50px;
+        background: #d4ffd4;
+        border: 1px solid #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
       Left
     </div>
 
     <!-- RIGHT -->
-    <div @mousedown.right.prevent="rightClick" style="width:80px; height:50px; background:#ffd4d4; border:1px solid #333;
-             display:flex; align-items:center; justify-content:center;">
+    <div
+      @mousedown.right.prevent="rightClick"
+      style="
+        width: 80px;
+        height: 50px;
+        background: #ffd4d4;
+        border: 1px solid #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
       Right
     </div>
 
     <!-- MIDDLE -->
-    <div @mousedown.middle="middleClick" style="width:80px; height:50px; background:#d4e0ff; border:1px solid #333;
-             display:flex; align-items:center; justify-content:center;">
+    <div
+      @mousedown.middle="middleClick"
+      style="
+        width: 80px;
+        height: 50px;
+        background: #d4e0ff;
+        border: 1px solid #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
       Middle
     </div>
-
   </div>
 </template>
 
