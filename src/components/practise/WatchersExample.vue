@@ -37,23 +37,76 @@ const user = reactive({
 
 // deep watcher → detects ANY nested change in the object
 
+//it is commented because for pre ,post and flush watcher
+// const count = ref(0)
+// let hasRun = false
+
+// watch(
+//   user,
+//   (newValue) => {
+//     if (hasRun) return //prevent futures runs
+//     // console.log('Deep Watcher triggered:', newValue)
+//     // console.log('Deep Watcher triggered', JSON.parse(JSON.stringify(newValue)))
+//     // console.log('Eager Watcher triggered:', newValue)
+//     // console.log(JSON.parse(JSON.stringify(newValue)))
+//     console.log('Once watcher triggered:', JSON.parse(JSON.stringify(newValue)))
+//     hasRun = true // block future watcher calls
+//   },
+//   { deep: true }, //important
+//   // { immediate: true },
+// )
+
+const id = ref(0)
+
+watch(id, (newId) => {
+  fetch(`/api/${newId}`).then(() => {
+    console.log('API called for', newId)
+  })
+})
+
 const count = ref(0)
-let hasRun = false
+
+//   NORMAL (DEFAULT) WATCHER
+//  flush: "pre" (default)
+//  Runs BEFORE DOM updates
 
 watch(
-  user,
-  (newValue) => {
-    if (hasRun) return //prevent futures runs
-    // console.log('Deep Watcher triggered:', newValue)
-    // console.log('Deep Watcher triggered', JSON.parse(JSON.stringify(newValue)))
-    // console.log('Eager Watcher triggered:', newValue)
-    // console.log(JSON.parse(JSON.stringify(newValue)))
-    console.log('Once watcher triggered:', JSON.parse(JSON.stringify(newValue)))
-    hasRun = true // block future watcher calls
+  count,
+  (newVal) => {
+    console.log(' PRE Watcher (default) → Before DOM update:', newVal)
   },
-  { deep: true }, //important
-  // { immediate: true },
+  { flush: 'pre' },
 )
+
+//  POST WATCHER
+//  flush: "post"
+//  Runs AFTER DOM updates
+
+watch(
+  count,
+  (newVal) => {
+    console.log(' POST Watcher → After DOM update:', newVal)
+  },
+  { flush: 'post' },
+)
+
+//   SYNC WATCHER
+//  flush: "sync"
+//  Runs IMMEDIATELY (NO batching)
+
+watch(
+  count,
+  (newVal) => {
+    console.log(' SYNC Watcher → Runs instantly:', newVal)
+  },
+  { flush: 'sync' },
+)
+
+// Function to increase count
+function increase() {
+  console.log('Button Clicked → Count Updated')
+  count.value++
+}
 </script>
 
 <template>
@@ -96,8 +149,26 @@ watch(
     <p class="mt-3"><strong>User Data:</strong> {{ user }}</p>
     <h1>once watcher</h1>
 
-    <h2>Count: {{ count }}</h2>
-    <button @click="count++">Increase</button>
+    <!-- <h2>Count: {{ count }}</h2>
+    <button @click="count++">Increase</button> -->
+
+    <div>
+      <h3>Current ID: {{ id }}</h3>
+
+      <!-- Button to change id -->
+      <button @click="id++">Increase ID</button>
+    </div>
+    <div class="container mt-4">
+      <h2>Flush Timing + Post Watchers Demo</h2>
+
+      <p><strong>Count:</strong> {{ count }}</p>
+
+      <button class="btn btn-primary" @click="increase">Increase Count</button>
+
+      <hr />
+
+      <p>Open the console to see watcher timing differences.</p>
+    </div>
   </div>
 </template>
 
