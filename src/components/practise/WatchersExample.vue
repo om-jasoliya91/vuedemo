@@ -37,16 +37,22 @@ const user = reactive({
 
 // deep watcher → detects ANY nested change in the object
 
+const count = ref(0)
+let hasRun = false
+
 watch(
   user,
   (newValue) => {
+    if (hasRun) return //prevent futures runs
     // console.log('Deep Watcher triggered:', newValue)
     // console.log('Deep Watcher triggered', JSON.parse(JSON.stringify(newValue)))
     // console.log('Eager Watcher triggered:', newValue)
-    console.log(JSON.parse(JSON.stringify(newValue)))
+    // console.log(JSON.parse(JSON.stringify(newValue)))
+    console.log('Once watcher triggered:', JSON.parse(JSON.stringify(newValue)))
+    hasRun = true // block future watcher calls
   },
-  // { deep: true }, //important
-  { immediate: true },
+  { deep: true }, //important
+  // { immediate: true },
 )
 </script>
 
@@ -88,6 +94,10 @@ watch(
     </div>
 
     <p class="mt-3"><strong>User Data:</strong> {{ user }}</p>
+    <h1>once watcher</h1>
+
+    <h2>Count: {{ count }}</h2>
+    <button @click="count++">Increase</button>
   </div>
 </template>
 
