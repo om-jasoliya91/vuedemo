@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, reactive } from 'vue'
 
 const question = ref('')
 const answer = ref('Questions usually contain a question mark. ;-)')
@@ -26,6 +26,25 @@ async function getAnswer() {
     loading.value = false
   }
 }
+
+const user = reactive({
+  name: '',
+  profile: {
+    age: 0,
+    city: '',
+  },
+})
+
+// deep watcher → detects ANY nested change in the object
+
+watch(
+  user,
+  (newValue) => {
+    // console.log('Deep Watcher triggered:', newValue)
+    console.log('Deep Watcher triggered', JSON.parse(JSON.stringify(newValue)))
+  },
+  { deep: true }, //important
+)
 </script>
 
 <template>
@@ -47,6 +66,25 @@ async function getAnswer() {
       <p v-if="loading">⏳ Loading...</p>
       <p v-else><strong>Answer:</strong> {{ answer }}</p>
     </div>
+
+    <h2>Deep Watcher Demo</h2>
+
+    <div class="mb-3">
+      <label class="form-label">User Name</label>
+      <input v-model="user.name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Age</label>
+      <input type="number" v-model="user.profile.age" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">City</label>
+      <input v-model="user.profile.city" class="form-control" />
+    </div>
+
+    <p class="mt-3"><strong>User Data:</strong> {{ user }}</p>
   </div>
 </template>
 
