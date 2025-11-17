@@ -1,6 +1,7 @@
 <script setup>
 import refExample from '../practise/refExample.vue'
 import ChildCard from '../practise/ChildCard.vue'
+import ClickButton from './ClickButton.vue'
 
 import { ref, onMounted } from 'vue'
 
@@ -14,6 +15,10 @@ onMounted(() => {
 <template>
   <refExample></refExample>
   <ChildCard ref="child"></ChildCard>
+
+  <ClickButton></ClickButton>
+  <ClickButton></ClickButton>
+  <ClickButton></ClickButton>
 </template>
 
 <style scoped></style>

@@ -12,6 +12,12 @@ onMounted(() => {
 })
 
 const list = ref(['a', 'b', 'c'])
+
+let inputRef = null
+function setInput(el) {
+  inputRef = el
+  console.log('Got Input element:', inputRef)
+}
 </script>
 
 <template>
@@ -23,6 +29,10 @@ const list = ref(['a', 'b', 'c'])
   <ul>
     <li v-for="item in list" ref="items" :key="item">{{ item }}</li>
   </ul>
+
+  <br />
+  <br />
+  <input :ref="setInput" placeholder="example of ref on function" />
 </template>
 
 <style scoped>
