@@ -4,7 +4,8 @@ const titleModel = defineModel('title')
 
 // Default v-model (parent: v-model="inputValue")
 const inputModel = defineModel()
-
+const firstName = defineModel('first-name')
+const lastName = defineModel('last-name')
 function update() {
   titleModel.value++ // increment parent value
 }
@@ -21,4 +22,12 @@ function update() {
 
   <!-- Default v-model for <input> -->
   <input v-model="inputModel" placeholder="Type something..." />
+
+  <h3>User Name Component</h3>
+
+  <!-- Bind to parent's "first" -->
+  <input v-model="firstName" placeholder="Enter first name" />
+
+  <!-- Bind to parent's "last" -->
+  <input v-model="lastName" placeholder="Enter last name" class="mt-2" />
 </template>
