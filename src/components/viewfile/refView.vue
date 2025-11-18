@@ -103,6 +103,11 @@ function changeFoo(newValue) {
     propG="warning"
     :propH="() => 'Custom function'"
   />
+
+  <PropsExample disabled :propC="'Required String'" :propD="null" />
+  <PropsExample boolString :propC="'Required String'" :propD="null" />
+  <PropsExample boolNumber :propC="'Required String'" :propD="null" />
+  <PropsExample stringBool :propC="'Required String'" :propD="null" />
 </template>
 
 <style scoped></style>
