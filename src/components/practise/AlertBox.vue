@@ -8,5 +8,8 @@ const { type } = defineProps({
 </script>
 
 <template>
-  <div :class="`alert alert-${type}`">This is alert Box</div>
+  <div :class="`alert alert-${type}`">
+    <slot />
+  </div>
+  <!--contetnt   will come from parent-->
 </template>

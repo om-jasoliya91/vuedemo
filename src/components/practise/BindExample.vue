@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed } from 'vue'
 
 //Reactive state
 const isActive = ref(true)
@@ -31,19 +31,19 @@ const objectStyle = computed(() => ({
   color: color.value,
   size: size.value + 'px',
   padding: '8px',
-  border: '4px'
+  border: '4px',
 }))
 
 // Another object for array style binding
 const highlightStyle = computed(() => ({
   backgroundColor: isHighlight.value ? 'yellow' : 'purple',
-  border: isHighlight.value ? '2px solid orange' : '2px solid green'
+  border: isHighlight.value ? '2px solid orange' : '2px solid green',
 }))
 
 // Base static style
 const baseStyle = {
   display: 'inline-block',
-  padding: '10px'
+  padding: '10px',
 }
 
 // Buttons
@@ -63,14 +63,10 @@ function changeColor() {
   <h1>Bind Example and Style Bindings</h1>
 
   <!-- string bindings  -->
-  <p :class="btnClass">
-    this uses a string class -> {{ btnClass }}
-  </p>
+  <p :class="btnClass">this uses a string class -> {{ btnClass }}</p>
 
   <!-- Array Binding -->
-  <p :class="classesArray">
-    This uses an array of classes → {{ classesArray }}
-  </p>
+  <p :class="classesArray">This uses an array of classes → {{ classesArray }}</p>
 
   <!-- object binding -->
   <p :class="{ active: isActive, error: isError }">
@@ -88,20 +84,12 @@ function changeColor() {
   <h1>Combined Inline Style Example</h1>
 
   <!-- object tyle binding  -->
-  <p :style="objectStyle">
-    object binding-> color: {{ color }},size:{{ size }}px
-  </p>
+  <p :style="objectStyle">object binding-> color: {{ color }},size:{{ size }}px</p>
 
   <!-- Array style Binding  -->
-  <p :style="[baseStyle, highlightStyle]">
-    Array Binding → highlight:{{ highlightStyle }}
-  </p>
+  <p :style="[baseStyle, highlightStyle]">Array Binding → highlight:{{ highlightStyle }}</p>
   <!-- Combined (object + array) -->
-  <p :style="[
-    objectStyle,
-    highlightStyle,
-    { marginTop: '15px', cursor: 'pointer' }
-  ]">
+  <p :style="[objectStyle, highlightStyle, { marginTop: '15px', cursor: 'pointer' }]">
     Combined Binding (object + array + extra)
   </p>
 

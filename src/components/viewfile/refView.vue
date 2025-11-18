@@ -43,9 +43,8 @@ function enlargedText() {
 
   <br />
   <br />
-  <div class="container">
-    <AlertBox type="danger"></AlertBox>
-    <AlertBox type="success"></AlertBox>
+  <div class="container text-dark">
+    <AlertBox type="warning">it is information alert</AlertBox>
   </div>
 </template>
 
