@@ -1,7 +1,7 @@
 <script setup>
 import { watch } from 'vue'
 
-const emit = defineEmits(['updatesFoo']) //child can send event
+const emit = defineEmits(['updatesFoo', 'alert', 'some-event', 'increase-by', 'save', 'delete']) //child can send event
 const props = defineProps({
   foo: String,
   id: Number,
@@ -61,6 +61,21 @@ watch(
     console.log('new foo:', newValue)
   },
 )
+
+//it is example of @some-event of events
+function sendEvent() {
+  emit('some-event', 'Hi parent!')
+}
+function increase() {
+  emit('increase-by', 1)
+}
+function saveItem() {
+  emit('save', { id: 10 })
+}
+
+function deleteItem() {
+  emit('delete', { id: 10 })
+}
 </script>
 
 <template>
@@ -84,6 +99,14 @@ watch(
   <p>boolString: {{ props.boolString }}</p>
   <p>boolNumber: {{ props.boolNumber }}</p>
   <p>stringBool: {{ props.stringBool }}</p>
+
+  <div>
+    <button @click="emit('alert')">Alert</button>
+    <button @click="sendEvent">Some-Event</button>
+    <button @click="increase">Increase by 1</button>
+    <button @click="saveItem">save</button>
+    <button @click="deleteItem">save</button>
+  </div>
 </template>
 
 <style scoped></style>

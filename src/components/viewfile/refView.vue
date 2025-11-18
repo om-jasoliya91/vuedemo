@@ -36,6 +36,26 @@ const fooValue = ref('hello')
 function changeFoo(newValue) {
   fooValue.value = newValue
 }
+//it is for click event
+function showAlert() {
+  alert('alert button clicked')
+}
+
+//it is for click some-event
+function callback(message) {
+  console.log('parent recieved', message)
+}
+const count = ref(0)
+function increaseCount(n) {
+  console.log((count.value += n))
+}
+function saveItem(data) {
+  console.log('Saved:', data)
+}
+
+function removeItem(data) {
+  console.log('Deleted:', data)
+}
 </script>
 
 <template>
@@ -104,10 +124,29 @@ function changeFoo(newValue) {
     :propH="() => 'Custom function'"
   />
 
-  <PropsExample disabled :propC="'Required String'" :propD="null" />
+  <!-- <PropsExample disabled :propC="'Required String'" :propD="null" />
   <PropsExample boolString :propC="'Required String'" :propD="null" />
   <PropsExample boolNumber :propC="'Required String'" :propD="null" />
-  <PropsExample stringBool :propC="'Required String'" :propD="null" />
+  <PropsExample stringBool :propC="'Required String'" :propD="null" /> -->
+
+  <PropsExample
+    disabled
+    boolString
+    boolNumber
+    stringBool
+    :propC="'Required String'"
+    :propD="null"
+  />
+
+  <PropsExample
+    @alert="showAlert"
+    @some-event="callback"
+    @increase-by="increaseCount"
+    @save="saveItem"
+    @delete="removeItem"
+    :propC="'Required String'"
+    :propD="null"
+  ></PropsExample>
 </template>
 
 <style scoped></style>
