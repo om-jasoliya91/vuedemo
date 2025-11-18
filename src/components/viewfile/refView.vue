@@ -4,7 +4,7 @@ import ChildCard from '../practise/ChildCard.vue'
 import ClickButton from './ClickButton.vue'
 import BlogPost from '../practise/BlogPost.vue'
 import AlertBox from '../practise/AlertBox.vue'
-
+import PropsExample from '../practise/PropsExample.vue'
 import { ref, onMounted } from 'vue'
 
 const child = ref(null)
@@ -23,6 +23,8 @@ const postFontSize = ref(1)
 function enlargedText() {
   postFontSize.value += 0.1
 }
+
+const fooValue = ref('hello')
 </script>
 
 <template>
@@ -48,6 +50,10 @@ function enlargedText() {
   </div>
 
   <GlobalComponent />
+
+  <PropsExample v-bind:foo="fooValue"></PropsExample>
+
+  <PropsExample v-for="post in posts" :key="post.id" v-bind="post" />
 </template>
 
 <style scoped></style>
