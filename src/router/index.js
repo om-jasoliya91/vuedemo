@@ -11,6 +11,7 @@ import RegisterView from '@/components/viewfile/RegisterView.vue'
 import WatchersView from '@/components/viewfile/WatchersView.vue'
 import RefView from '@/components/viewfile/refView.vue'
 import TabsView from '@/components/viewfile/TabsView.vue'
+import VmodelView from '@/components/viewfile/VmodelView.vue'
 
 const routes = [
   { path: '/', name: 'Welcome', component: WelcomeBack },
@@ -25,6 +26,7 @@ const routes = [
   { path: '/watcher', name: 'Watcher', component: WatchersView },
   { path: '/ref', name: 'ref', component: RefView },
   { path: '/tabs', name: 'tabs', component: TabsView },
+  { path: '/vmodel', name: 'vmodel', component: VmodelView },
 ]
 
 const router = createRouter({
