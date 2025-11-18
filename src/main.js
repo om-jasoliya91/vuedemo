@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
+import GlobalComponent from './components/practise/GlobalComponent.vue'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
@@ -11,5 +12,8 @@ const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+
+//blobal register component
+app.component('GlobalComponent', GlobalComponent)
 
 app.mount('#app')

@@ -46,6 +46,8 @@ function enlargedText() {
   <div class="container text-dark">
     <AlertBox type="warning">it is information alert</AlertBox>
   </div>
+
+  <GlobalComponent />
 </template>
 
 <style scoped></style>
