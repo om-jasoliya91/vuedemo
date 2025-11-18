@@ -25,6 +25,10 @@ function enlargedText() {
 }
 
 const fooValue = ref('hello')
+
+function changeFoo(newValue) {
+  fooValue.value = newValue
+}
 </script>
 
 <template>
@@ -54,6 +58,12 @@ const fooValue = ref('hello')
   <PropsExample v-bind:foo="fooValue"></PropsExample>
 
   <PropsExample v-for="post in posts" :key="post.id" v-bind="post" />
+  <PropsExample
+    :foo="fooValue"
+    :id="1"
+    :title="'how are you'"
+    @updatesFoo="changeFoo"
+  ></PropsExample>
 </template>
 
 <style scoped></style>
