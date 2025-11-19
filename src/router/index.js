@@ -7,12 +7,13 @@ import BindView from '@/components/viewfile/BindView.vue'
 import ConditionView from '@/components/viewfile/ConditionView.vue'
 import VforView from '@/components/viewfile/VforView.vue'
 import EventhandleView from '@/components/viewfile/EventhandleView.vue'
-import RegisterView from '@/components/viewfile/RegisterView.vue'
+import RegisterComponent from '@/components/viewfile/RegisterComponent.vue'
 import WatchersView from '@/components/viewfile/WatchersView.vue'
 import RefView from '@/components/viewfile/refView.vue'
 import TabsView from '@/components/viewfile/TabsView.vue'
 import VmodelView from '@/components/viewfile/VmodelView.vue'
 import ClickButton from '@/components/viewfile/ClickButton.vue'
+import RegisterView from '@/components/pages/RegisterView.vue'
 
 const routes = [
   { path: '/', name: 'Welcome', component: WelcomeBack },
@@ -23,12 +24,13 @@ const routes = [
   { path: '/condition', name: 'Condition', component: ConditionView },
   { path: '/for', name: 'Vfor', component: VforView },
   { path: '/event', name: 'Event', component: EventhandleView },
-  { path: '/register', name: 'Register', component: RegisterView },
+  { path: '/registercomp', name: 'Register', component: RegisterComponent },
   { path: '/watcher', name: 'Watcher', component: WatchersView },
   { path: '/ref', name: 'ref', component: RefView },
   { path: '/tabs', name: 'tabs', component: TabsView },
   { path: '/vmodel', name: 'vmodel', component: VmodelView },
   { path: '/button', name: 'button', component: ClickButton },
+  { path: '/register', name: 'Register', component: RegisterView },
 ]
 
 const router = createRouter({
