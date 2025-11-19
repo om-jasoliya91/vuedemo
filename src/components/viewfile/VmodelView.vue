@@ -19,7 +19,6 @@ const myText = ref('')
     v-model:last-name="last"
     v-model:text.capitalize="myText"
   />
-
   <h4>Parent Values</h4>
   <p>Count Model: {{ countModel }}</p>
   <p>Input Value: {{ inputValue }}</p>

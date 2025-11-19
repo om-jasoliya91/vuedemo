@@ -4,14 +4,21 @@ const model = defineModel() // v-model
 
 // named models
 const title = defineModel('title') // v-model:title
-const firstName = defineModel('first-name') // v-model:first-name
-const lastName = defineModel('last-name') // v-model:last-name
+const firstName = defineModel('firstName') // v-model:first-name
+const lastName = defineModel('lastName') // v-model:last-name
 
-// custom model with modifier
+// custom model with capitalize modifier
 const text = defineModel('text', {
+  get(value) {
+    return value
+  },
   set(value, modifiers) {
+    console.log('Modifiers:', modifiers) // <– check if capitalize is coming
+
     if (modifiers?.capitalize) {
-      value = value.charAt(0).toUpperCase() + value.slice(1)
+      if (typeof value === 'string' && value.length > 0) {
+        value = value.charAt(0).toUpperCase() + value.slice(1)
+      }
     }
     return value
   },
