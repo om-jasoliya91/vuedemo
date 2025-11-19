@@ -12,6 +12,7 @@ import WatchersView from '@/components/viewfile/WatchersView.vue'
 import RefView from '@/components/viewfile/refView.vue'
 import TabsView from '@/components/viewfile/TabsView.vue'
 import VmodelView from '@/components/viewfile/VmodelView.vue'
+import ClickButton from '@/components/viewfile/ClickButton.vue'
 
 const routes = [
   { path: '/', name: 'Welcome', component: WelcomeBack },
@@ -27,6 +28,7 @@ const routes = [
   { path: '/ref', name: 'ref', component: RefView },
   { path: '/tabs', name: 'tabs', component: TabsView },
   { path: '/vmodel', name: 'vmodel', component: VmodelView },
+  { path: '/button', name: 'button', component: ClickButton },
 ]
 
 const router = createRouter({

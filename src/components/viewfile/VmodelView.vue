@@ -5,7 +5,7 @@ import VmodelComponent from '../practise/VmodelComponent.vue'
 const countModel = ref(0)
 const inputValue = ref('')
 const first = ref('')
-const last = ref('')
+const last = ref('ppppp')
 
 // Needed for v-model.capitalize
 const myText = ref('')
@@ -19,6 +19,7 @@ const myText = ref('')
     v-model:last-name="last"
     v-model:text.capitalize="myText"
   />
+  <input type="text" v-model="first"></input>
   <h4>Parent Values</h4>
   <p>Count Model: {{ countModel }}</p>
   <p>Input Value: {{ inputValue }}</p>
