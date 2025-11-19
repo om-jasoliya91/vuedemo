@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from 'axios' //this is axios which is library of javascrit it is work like ajax
 const router = useRouter()
 
 const form = ref({
@@ -9,16 +10,19 @@ const form = ref({
   password: '',
 })
 
-const error = ref({
-  name: '',
-  email: '',
-  password: '',
-})
+const error = ref({})
+const backendError = ref({})
 
-function simpleValidate() {
-  //reset errors
-
+function resetError() {
   error.value = { name: '', email: '', password: '' }
+  backendError.value = ''
+}
+
+async function submitForm(e) {
+  e.preventDefault() //it is use because no one can perform normal submit
+  resetError()
+
+  // local simple validation
 
   if (!form.value.name.trim()) {
     error.value.name = 'Name is Required'
@@ -32,19 +36,22 @@ function simpleValidate() {
     error.value.password = 'Must be minimum 6 character'
   }
 
-  return !error.value.name && !error.value.email && !error.value.password
-}
+  if (error.value.name || error.value.email || error.value.password) {
+    return
+  }
+  try {
+    const response = await axios.post('http://127.0.0.1:8000/api/users', form.value)
+    console.log(response.data)
+    alert('Registration successfully')
 
-function submitForm(e) {
-  e.preventDefault() //it is stop the normal form submission
-
-  if (simpleValidate()) {
-    localStorage.setItem('user', JSON.stringify(form.value))
-    alert('Registration successfully.')
-
-    //clear form
     form.value = { name: '', email: '', password: '' }
     router.push('/login')
+  } catch (err) {
+    if (err.response?.data?.errors) {
+      backendError.value = err.response.data.errors
+    } else {
+      backendError.value = 'Something Went Wrong'
+    }
   }
 }
 </script>
@@ -54,6 +61,7 @@ function submitForm(e) {
     <h1 class="text-primary">Registration Page</h1>
 
     <form @submit="submitForm">
+      <span class="text-danger">{{ backendError }}</span>
       <div class="mb-3">
         <label class="form-label" for="name">Name:</label>
         <input

@@ -37,9 +37,4 @@ function logout() {
   </nav>
 </template>
 
-<style scoped>
-/* Hover color (Bootstrap does not provide text-primary:hover by default) */
-.hover\:text-primary:hover {
-  color: #0d6efd; /* Bootstrap primary blue */
-}
-</style>
+<style scoped></style>
