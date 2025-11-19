@@ -35,20 +35,22 @@ async function submitForm(e) {
   } else if (form.value.password.length < 6) {
     error.value.password = 'Must be minimum 6 character'
   }
-
+  // Stop if any validation error exists
   if (error.value.name || error.value.email || error.value.password) {
     return
   }
   try {
+    //it is used to send data of email and password and backend check if match  and response.
     const response = await axios.post('http://127.0.0.1:8000/api/users', form.value)
     console.log(response.data)
     alert('Registration successfully')
 
+    //it is clear data.
     form.value = { name: '', email: '', password: '' }
     router.push('/login')
   } catch (err) {
     if (err.response?.data?.errors) {
-      backendError.value = err.response.data.errors
+      backendError.value = err.response.data.errors //it is take error response from api where data already exist
     } else {
       backendError.value = 'Something Went Wrong'
     }

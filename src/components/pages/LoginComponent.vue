@@ -1,4 +1,5 @@
 <script setup>
+import axios from 'axios'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -8,18 +9,20 @@ const login = ref({
   password: '',
 })
 const error = ref('')
-function loginUser() {
-  const savedUser = JSON.parse(localStorage.getItem('user'))
-  if (!savedUser) {
-    error.value = 'No registration found.please try again'
-    return
-  }
-
-  if (login.value.email === savedUser.email && login.value.password === savedUser.password) {
-    alert('successfully Login')
+async function loginUser() {
+  error.value = ''
+  try {
+    //fetch data from laravel api
+    const response = await axios.post('http://127.0.0.1:8000/api/login', {
+      email: login.value.email,
+      password: login.value.password,
+    })
+    console.log(response.data.user)
+    alert('Login successful!')
+    // only logged-in user data
     router.push('/dashboard')
-  } else {
-    error.value = 'Invalid email and password'
+  } catch {
+    error.value = 'Something Went wrong'
   }
 }
 </script>
