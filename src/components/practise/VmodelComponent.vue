@@ -1,33 +1,29 @@
 <script setup>
-// Custom v-model:title (parent: v-model:title="countModel")
-const titleModel = defineModel('title')
+// default v-model
+const model = defineModel() // v-model
 
-// Default v-model (parent: v-model="inputValue")
-const inputModel = defineModel()
-const firstName = defineModel('first-name')
-const lastName = defineModel('last-name')
-function update() {
-  titleModel.value++ // increment parent value
-}
+// named models
+const title = defineModel('title') // v-model:title
+const firstName = defineModel('first-name') // v-model:first-name
+const lastName = defineModel('last-name') // v-model:last-name
+
+// custom model with modifier
+const text = defineModel('text', {
+  set(value, modifiers) {
+    if (modifiers?.capitalize) {
+      value = value.charAt(0).toUpperCase() + value.slice(1)
+    }
+    return value
+  },
+})
 </script>
 
 <template>
-  <h3>Vmodel Component</h3>
-
-  <!-- Display the custom v-model:title -->
-  <div>Parent bound v-model:title is: {{ titleModel }}</div>
-  <button @click="update">Increment</button>
-
-  <br /><br />
-
-  <!-- Default v-model for <input> -->
-  <input v-model="inputModel" placeholder="Type something..." />
-
-  <h3>User Name Component</h3>
-
-  <!-- Bind to parent's "first" -->
-  <input v-model="firstName" placeholder="Enter first name" />
-
-  <!-- Bind to parent's "last" -->
-  <input v-model="lastName" placeholder="Enter last name" class="mt-2" />
+  <div>
+    <input v-model="model" placeholder="default model" />
+    <input v-model="title" placeholder="title" />
+    <input v-model="firstName" placeholder="first name" />
+    <input v-model="lastName" placeholder="last name" />
+    <input v-model="text" placeholder="capitalize model" />
+  </div>
 </template>

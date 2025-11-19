@@ -2,12 +2,13 @@
 import { ref } from 'vue'
 import VmodelComponent from '../practise/VmodelComponent.vue'
 
-// Variables bound via v-model
 const countModel = ref(0)
 const inputValue = ref('')
-
 const first = ref('')
 const last = ref('')
+
+// Needed for v-model.capitalize
+const myText = ref('')
 </script>
 
 <template>
@@ -16,6 +17,7 @@ const last = ref('')
     v-model="inputValue"
     v-model:first-name="first"
     v-model:last-name="last"
+    v-model:text.capitalize="myText"
   />
 
   <h4>Parent Values</h4>
@@ -25,4 +27,6 @@ const last = ref('')
   <h4>Parent Values:</h4>
   <p>First Name: {{ first }}</p>
   <p>Last Name: {{ last }}</p>
+
+  <h4>My Text: {{ myText }}</h4>
 </template>
