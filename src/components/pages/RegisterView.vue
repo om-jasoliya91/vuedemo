@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const form = ref({
   name: '',
@@ -37,7 +39,12 @@ function submitForm(e) {
   e.preventDefault() //it is stop the normal form submission
 
   if (simpleValidate()) {
-    alert('Form submit successfully')
+    localStorage.setItem('user', JSON.stringify(form.value))
+    alert('Registration successfully.')
+
+    //clear form
+    form.value = { name: '', email: '', password: '' }
+    router.push('/login')
   }
 }
 </script>
@@ -83,11 +90,10 @@ function submitForm(e) {
       <div mb-3>
         <input class="btn btn-outline-primary form-control" type="submit" value="submit" />
       </div>
+      <div class="text-decoration-none text-center mt-3">
+        <RouterLink to="/login">If you have account?Login Here</RouterLink>
+      </div>
     </form>
-    <h1>Data of user</h1>
-    <p><strong>Name:</strong>{{ form.name }}</p>
-    <p><strong>Email:</strong>{{ form.email }}</p>
-    <p><strong>Password:</strong>{{ form.password }}</p>
   </div>
 </template>
 

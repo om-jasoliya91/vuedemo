@@ -14,6 +14,8 @@ import TabsView from '@/components/viewfile/TabsView.vue'
 import VmodelView from '@/components/viewfile/VmodelView.vue'
 import ClickButton from '@/components/viewfile/ClickButton.vue'
 import RegisterView from '@/components/pages/RegisterView.vue'
+import LoginComponent from '@/components/pages/LoginComponent.vue'
+import DashboardView from '@/components/pages/DashboardView.vue'
 
 const routes = [
   { path: '/', name: 'Welcome', component: WelcomeBack },
@@ -31,6 +33,8 @@ const routes = [
   { path: '/vmodel', name: 'vmodel', component: VmodelView },
   { path: '/button', name: 'button', component: ClickButton },
   { path: '/register', name: 'Register', component: RegisterView },
+  { path: '/login', name: 'login', component: LoginComponent },
+  { path: '/dashboard', name: 'dashboard', component: DashboardView },
 ]
 
 const router = createRouter({
