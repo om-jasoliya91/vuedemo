@@ -13,16 +13,22 @@ async function loginUser() {
   error.value = ''
   try {
     //fetch data from laravel api
+    // console.log('EMAIL =', login.value.email)
+    // console.log('PASSWORD =', login.value.password)
     const response = await axios.post('http://127.0.0.1:8000/api/login', {
       email: login.value.email,
       password: login.value.password,
     })
+    console.log(response)
+    localStorage.setItem('token', response.data.token)
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token
     console.log(response.data.user)
     alert('Login successful!')
     // only logged-in user data
     router.push('/dashboard')
-  } catch {
-    error.value = 'Something Went wrong'
+  } catch (err) {
+    console.log('LOGIN ERROR:', err.response?.data) // SEE REAL ERROR
+    error.value = err.response?.data?.message || 'Something went wrong'
   }
 }
 </script>

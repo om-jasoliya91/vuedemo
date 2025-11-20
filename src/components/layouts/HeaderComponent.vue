@@ -1,10 +1,17 @@
 <script setup>
+import axios from 'axios'
 import { useRouter } from 'vue-router'
 const router = useRouter()
-function logout() {
-  localStorage.clear()
-  alert('Logout successfully')
-  router.push('/login')
+
+async function logout() {
+  try {
+    const response = await axios.post('http://127.0.0.1:8000/api/logout')
+    console.log(response)
+    alert('Logged Out!')
+    router.push('/login')
+  } catch (err) {
+    console.log('LOGOUT ERROR:', err.response?.data)
+  }
 }
 </script>
 
@@ -29,9 +36,7 @@ function logout() {
         </router-link>
       </li>
       <li>
-        <a href="#" @click="logout" class="text-primary text-decoration-none hover:text-danger"
-          >Logout</a
-        >
+        <button @click="logout">Logout</button>
       </li>
     </ul>
   </nav>
