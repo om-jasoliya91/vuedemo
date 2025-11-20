@@ -2,8 +2,13 @@
 import axios from 'axios'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/userstore'
 
 const router = useRouter()
+
+//pinia store
+const auth = useUserStore()
+
 const login = ref({
   email: '',
   password: '',
@@ -20,14 +25,17 @@ async function loginUser() {
       password: login.value.password,
     })
     console.log(response)
-    localStorage.setItem('token', response.data.token)
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token
+
+    // Save user + token to Pinia
+    auth.loginSuccess(response.data.user, response.data.token)
+
     console.log(response.data.user)
     alert('Login successful!')
     // only logged-in user data
     router.push('/dashboard')
   } catch (err) {
     console.log('LOGIN ERROR:', err.response?.data) // SEE REAL ERROR
+    //'?'-> If the previous value exists, THEN access the next property
     error.value = err.response?.data?.message || 'Something went wrong'
   }
 }
@@ -55,7 +63,7 @@ async function loginUser() {
           class="form-control"
           type="password"
           name="password"
-          placeholder="Enter Your Email"
+          placeholder="Enter Your Password"
         />
       </div>
       <div class="mb-3">
