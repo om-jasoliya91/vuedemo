@@ -8,14 +8,9 @@ import BlogPost from '../practise/BlogPost.vue'
 import AlertBox from '../practise/AlertBox.vue'
 import PropsExample from '../practise/PropsExample.vue'
 
-// child method calling (ref example)
+// child method calling
 const child = ref(null)
-
-onMounted(() => {
-  if (child.value?.sayHello) {
-    child.value.sayHello()
-  }
-})
+onMounted(() => child.value?.sayHello?.())
 
 // posts data
 const posts = ref([
@@ -25,75 +20,46 @@ const posts = ref([
 
 // blog font change
 const postFontSize = ref(1)
+const enlargedText = () => (postFontSize.value += 0.1)
 
-function enlargedText() {
-  postFontSize.value += 0.1
-}
-
-// props example foo update
+// props update foo
 const fooValue = ref('hello')
+const changeFoo = (newValue) => (fooValue.value = newValue)
 
-function changeFoo(newValue) {
-  fooValue.value = newValue
-}
-//it is for click event
-function showAlert() {
-  alert('alert button clicked')
-}
-
-//it is for click some-event
-function callback(message) {
-  console.log('parent recieved', message)
-}
+// custom events
+const showAlert = () => alert('alert button clicked')
+const callback = (message) => console.log('parent received:', message)
 const count = ref(0)
-function increaseCount(n) {
-  console.log((count.value += n))
-}
-function saveItem(data) {
-  console.log('Saved:', data)
-}
-
-function removeItem(data) {
-  console.log('Deleted:', data)
-}
+const increaseCount = (n) => console.log((count.value += n))
+const saveItem = (data) => console.log('Saved:', data)
+const removeItem = (data) => console.log('Deleted:', data)
 </script>
 
 <template>
   <refExample />
 
-  <!-- Child with required props -->
   <ChildCard ref="child" name="om" :score="60" />
 
-  <!-- Loop Child Cards -->
   <ChildCard v-for="post in posts" :key="post.id" :title="post.title" />
 
-  <!-- ClickButton examples -->
   <ClickButton />
   <ClickButton />
   <ClickButton />
 
-  <br /><br />
-
-  <!-- BlogPost enlarge example -->
   <div :style="{ fontSize: postFontSize + 'em' }">
     <BlogPost title="My string" @enlarged="enlargedText" />
   </div>
 
-  <br /><br />
-
-  <!-- Alert Box -->
   <div class="container text-dark">
     <AlertBox type="warning"> it is information alert </AlertBox>
   </div>
 
-  <!-- Global component -->
   <GlobalComponent />
 
-  <!-- PropsExample with simple foo -->
-  <PropsExample :foo="fooValue" :propC="'Required String'" :propD="null" />
+  <!-- PropsExample with foo update -->
+  <PropsExample :foo="fooValue" @updatesFoo="changeFoo" :propC="'Required String'" :propD="null" />
 
-  <!--here propC and propD always need apply because we can set validation required:true-->
-  <!-- Loop (avoid v-bind="post" unless props match) -->
+  <!-- Loop -->
   <PropsExample
     v-for="post in posts"
     :key="post.id"
@@ -113,7 +79,7 @@ function removeItem(data) {
     :propD="null"
   />
 
-  <!-- Full prop demo -->
+  <!-- Full props -->
   <PropsExample
     propB="Hello"
     propC="RequiredString"
@@ -124,11 +90,6 @@ function removeItem(data) {
     :propH="() => 'Custom function'"
   />
 
-  <!-- <PropsExample disabled :propC="'Required String'" :propD="null" />
-  <PropsExample boolString :propC="'Required String'" :propD="null" />
-  <PropsExample boolNumber :propC="'Required String'" :propD="null" />
-  <PropsExample stringBool :propC="'Required String'" :propD="null" /> -->
-
   <PropsExample
     disabled
     boolString
@@ -138,6 +99,7 @@ function removeItem(data) {
     :propD="null"
   />
 
+  <!-- Events -->
   <PropsExample
     @alert="showAlert"
     @some-event="callback"
@@ -146,7 +108,7 @@ function removeItem(data) {
     @delete="removeItem"
     :propC="'Required String'"
     :propD="null"
-  ></PropsExample>
+  />
 </template>
 
 <style scoped></style>
