@@ -27,13 +27,13 @@ const props = defineProps({
   // Object with default value
   propF: {
     type: Object,
-    default(rawProps) {
+    default() {
       return { message: 'hello' }
     },
   },
   // Custom validator
   propG: {
-    validator(value, props) {
+    validator(value) {
       return ['success', 'warning', 'danger'].includes(value)
     },
   },

@@ -211,7 +211,7 @@ function middleClick() {
   <div @contextmenu.prevent style="display: flex; gap: 10px; margin-top: 20px">
     <!-- LEFT -->
     <div
-      @mousedown.left="leftClick"
+      @mouseup.left="leftClick"
       style="
         width: 80px;
         height: 50px;
@@ -227,7 +227,7 @@ function middleClick() {
 
     <!-- RIGHT -->
     <div
-      @mousedown.right.prevent="rightClick"
+      @mouseup.right.prevent="rightClick"
       style="
         width: 80px;
         height: 50px;
@@ -243,7 +243,7 @@ function middleClick() {
 
     <!-- MIDDLE -->
     <div
-      @mousedown.middle="middleClick"
+      @mouseup.middle.prevent="middleClick"
       style="
         width: 80px;
         height: 50px;

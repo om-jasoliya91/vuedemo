@@ -18,14 +18,14 @@ function increase() {
 const id = ref(10)
 
 const ok = ref(true)
-const message = ref("Hello World")
+const message = ref('Hello World')
 
 // const output = computed(() => {
 //   return ok.value ? message.value : ""
 // })
 
 function sayHello() {
-  alert('Hello Vue from Vue function');
+  alert('Hello Vue from Vue function')
 }
 
 const date = ref('2024-01-01')
@@ -33,7 +33,7 @@ function toTitleDate(d) {
   return new Date(d).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   })
 }
 
@@ -52,11 +52,9 @@ const url = ref('https://google.com')
   <p>Count * 2 = {{ count * 2 }}</p>
   <p>Total Price = {{ price * quantity }}</p>
 
-  <p>status : {{ count > 5 ? "high Count" : "Low Count" }}</p>
+  <p>status : {{ count > 5 ? 'high Count' : 'Low Count' }}</p>
 
-  <button @click="increase">
-    Increase Count (Current :{{ count }})
-  </button>
+  <button @click="increase">Increase Count (Current :{{ count }})</button>
 
   <div :id="`list-${id}`">{{ id }}</div>
 
@@ -64,16 +62,16 @@ const url = ref('https://google.com')
 
   <span v-if="ok">{{ message }}</span>
   <span v-else>No message</span>
-  <br>
+  <br />
   <button @click="sayHello">Click Me</button>
 
-  <br>
+  <br />
   {{ formatDate(date) }}
-  <br>
+  <br />
   <time :title="toTitleDate(date)" :datetime="date">
     {{ formatDate(date) }}
   </time>
-  <br>
+  <br />
   <a :href="url">google</a>
 </template>
 

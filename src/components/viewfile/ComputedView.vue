@@ -1,15 +1,11 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted, reactive } from 'vue';
+import { ref, computed, onMounted, onUnmounted, reactive } from 'vue'
 
 const author = reactive({
   name: 'om',
-  books: [
-    'vue 2- Advanced Guide',
-    'vue 3- Baic Guide',
-    'vue 4- The Mystery'
-  ]
+  books: ['vue 2- Advanced Guide', 'vue 3- Baic Guide', 'vue 4- The Mystery'],
 })
-// console.log(author.books.length > 0 ? 'yes' : 'No')
+// console.log(author.books[2])
 
 const publishBookMessage = computed(() => {
   return author.books.length > 0 ? 'yes' : 'No'
@@ -45,8 +41,8 @@ const fullName = computed({
   //setter
   set(newValue) {
     //we are usingdestruting assignment syntax here.
-    [firstName.value, lastName.value] = newValue.split(' ')
-  }
+    ;[firstName.value, lastName.value] = newValue.split(' ')
+  },
 })
 
 //getting the previous Value
@@ -61,7 +57,7 @@ const alwaysSmall = computed({
   },
   set(newValue) {
     count.value = newValue * 2
-  }
+  },
 })
 </script>
 

@@ -1,13 +1,12 @@
 <script setup>
-import { ref, nextTick, reactive, toRefs } from 'vue';
+import { ref, nextTick, reactive, toRefs } from 'vue'
 
 const obj = ref({
   nested: { count: 0 },
   arr: ['foo', 'bar'],
 })
 function mutateDeeply() {
-  obj.value.nested.count++,
-    obj.value.arr.push('ketan', 'om')
+  ;(obj.value.nested.count++, obj.value.arr.push('ketan', 'om'))
 }
 
 // Count variable for increment()
@@ -23,9 +22,10 @@ async function increment() {
 const state = reactive({
   count: 0,
   user: {
-    name: 'om'
-  }
+    name: 'om',
+  },
 })
+// console.log(state.user.name)
 const { count: countRef, user } = toRefs(state)
 
 function incrementReactive() {
@@ -42,17 +42,20 @@ console.log(reactive(raw) === proxy) //true
 const books = reactive([ref('Vue 3 Guide')])
 console.log(books[0])
 console.log(books[0].value)
-books[0].value = "Vue 3 Mastary"
+books[0].value = 'Vue 3 Mastary'
 console.log('Updated:', books[0].value)
 console.log(books[0])
 console.log(books[0].value)
+
+const map = reactive(new Map([['count', ref(4)]]))
+// need .value here
+console.log(map.get('count').value)
 </script>
 
 <template>
   <button @click="mutateDeeply">Mutate</button>
   <p>{{ obj }}</p>
-  Total Count: <button @click="increment">{{ count }}</button>
-  <br><br>
+  Total Count: <button @click="increment">{{ count }}</button> <br /><br />
   <p>Reactive Count From toRefs(): {{ countRef }}</p>
   <p>User Name: {{ user.name }}</p>
   <button @click="incrementReactive">Increase Reactive Count</button>

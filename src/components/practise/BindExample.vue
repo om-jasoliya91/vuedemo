@@ -29,7 +29,7 @@ const isHighlight = ref(false)
 //Style an an object
 const objectStyle = computed(() => ({
   color: color.value,
-  size: size.value + 'px',
+  fontSize: size.value + 'px',
   padding: '8px',
   border: '4px',
 }))

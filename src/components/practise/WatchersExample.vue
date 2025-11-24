@@ -1,32 +1,7 @@
 <script setup>
-import { ref, watch, reactive } from 'vue'
+import { ref, reactive, watch, watchEffect, nextTick } from 'vue'
 
-const question = ref('')
-const answer = ref('Questions usually contain a question mark. ;-)')
-const loading = ref(false)
-
-// watcher → runs automatically when question changes
-watch(question, async (newValue) => {
-  if (newValue.includes('?')) {
-    await getAnswer()
-  }
-})
-
-async function getAnswer() {
-  loading.value = true
-  answer.value = 'Thinking.....'
-
-  try {
-    const res = await fetch('https://yesno.wtf/api')
-    const data = await res.json()
-    answer.value = data.answer
-  } catch (error) {
-    answer.value = 'Error! Could not reach the API. ' + error
-  } finally {
-    loading.value = false
-  }
-}
-
+// state
 const user = reactive({
   name: '',
   profile: {
@@ -35,141 +10,99 @@ const user = reactive({
   },
 })
 
-// deep watcher → detects ANY nested change in the object
-
-//it is commented because for pre ,post and flush watcher
-// const count = ref(0)
-// let hasRun = false
-
-// watch(
-//   user,
-//   (newValue) => {
-//     if (hasRun) return //prevent futures runs
-//     // console.log('Deep Watcher triggered:', newValue)
-//     // console.log('Deep Watcher triggered', JSON.parse(JSON.stringify(newValue)))
-//     // console.log('Eager Watcher triggered:', newValue)
-//     // console.log(JSON.parse(JSON.stringify(newValue)))
-//     console.log('Once watcher triggered:', JSON.parse(JSON.stringify(newValue)))
-//     hasRun = true // block future watcher calls
-//   },
-//   { deep: true }, //important
-//   // { immediate: true },
-// )
-
 const id = ref(0)
-
-watch(id, (newId) => {
-  fetch(`/api/${newId}`).then(() => {
-    console.log('API called for', newId)
-  })
-})
-
 const count = ref(0)
 
-//   NORMAL (DEFAULT) WATCHER
-//  flush: "pre" (default)
-//  Runs BEFORE DOM updates
+// deep+eager
+watch(
+  user,
+  (newVal) => {
+    console.log(' Deep + Eager Watch → user changed:', JSON.parse(JSON.stringify(newVal)))
+  },
+  { deep: true, immediate: true },
+)
 
+// once Watcher
+let firstRun = true
+watch(id, (newVal) => {
+  if (!firstRun) return
+  console.log(' Once Watch Triggered → id first change:', newVal)
+  firstRun = false
+})
+
+// simple watch
+watch(id, (newId) => {
+  console.log(' API call simulated for id:', newId)
+})
+
+// watchEffect (auto dependency tracking)
+watchEffect(() => {
+  console.log('⚡ watchEffect → id:', id.value, '| city:', user.profile.city)
+})
+
+// FLUSH WATCHERS (pre | post | sync)
 watch(
   count,
-  (newVal) => {
-    console.log(' PRE Watcher (default) → Before DOM update:', newVal)
+  async (newVal) => {
+    console.log(' PRE → BEFORE DOM:', newVal)
+    await nextTick()
+    console.log(' PRE → AFTER DOM:', document.querySelector('#countDom')?.textContent)
   },
   { flush: 'pre' },
 )
 
-//  POST WATCHER
-//  flush: "post"
-//  Runs AFTER DOM updates
-
 watch(
   count,
-  (newVal) => {
-    console.log(' POST Watcher → After DOM update:', newVal)
+  async (newVal) => {
+    console.log(' POST → AFTER DOM:', newVal)
   },
   { flush: 'post' },
 )
 
-//   SYNC WATCHER
-//  flush: "sync"
-//  Runs IMMEDIATELY (NO batching)
-
 watch(
   count,
-  (newVal) => {
-    console.log(' SYNC Watcher → Runs instantly:', newVal)
+  async (newVal) => {
+    console.log(' SYNC → IMMEDIATE:', newVal)
+    await nextTick()
+    console.log(' SYNC → AFTER DOM:', document.querySelector('#countDom')?.textContent)
   },
   { flush: 'sync' },
 )
 
-// Function to increase count
-function increase() {
-  console.log('Button Clicked → Count Updated')
+// function
+function increaseCount() {
   count.value++
+}
+function increaseId() {
+  id.value++
 }
 </script>
 
 <template>
-  <div class="container my-5" style="width: 500px">
-    <h3>Watcher Demo Page</h3>
-    <h2>Ask a Yes/No Question</h2>
+  <div class="container my-5" style="width: 550px">
+    <h2 class="mb-3">All Watchers Combined Example</h2>
 
-    <div class="mb-3">
-      <label class="form-label">Question</label>
+    <!-- Deep + eager watcher -->
+    <label class="form-label">User Name</label>
+    <input v-model="user.name" class="form-control mb-2" />
 
-      <!-- FIXED: v-model added here -->
-      <input
-        v-model="question"
-        type="text"
-        class="form-control"
-        placeholder="Type your question (must include ?)"
-      />
+    <label class="form-label">Age</label>
+    <input type="number" v-model="user.profile.age" class="form-control mb-2" />
 
-      <p v-if="loading">⏳ Loading...</p>
-      <p v-else><strong>Answer:</strong> {{ answer }}</p>
-    </div>
+    <label class="form-label">City</label>
+    <input v-model="user.profile.city" class="form-control mb-4" />
 
-    <h2>Deep Watcher Demo</h2>
+    <!-- Once Watcher + API Watch -->
+    <h4>Current ID: {{ id }}</h4>
+    <button @click="increaseId" class="btn btn-secondary mb-4">Increase ID</button>
 
-    <div class="mb-3">
-      <label class="form-label">User Name</label>
-      <input v-model="user.name" class="form-control" />
-    </div>
+    <!-- Flush timing -->
+    <h4>Flush Timing Watchers Demo</h4>
+    <p>
+      <strong>Count Dom:</strong> <span id="countDom">{{ count }}</span>
+    </p>
+    <button @click="increaseCount" class="btn btn-primary">Increase Count</button>
 
-    <div class="mb-3">
-      <label class="form-label">Age</label>
-      <input type="number" v-model="user.profile.age" class="form-control" />
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">City</label>
-      <input v-model="user.profile.city" class="form-control" />
-    </div>
-
-    <p class="mt-3"><strong>User Data:</strong> {{ user }}</p>
-    <h1>once watcher</h1>
-
-    <!-- <h2>Count: {{ count }}</h2>
-    <button @click="count++">Increase</button> -->
-
-    <div>
-      <h3>Current ID: {{ id }}</h3>
-
-      <!-- Button to change id -->
-      <button @click="id++">Increase ID</button>
-    </div>
-    <div class="container mt-4">
-      <h2>Flush Timing + Post Watchers Demo</h2>
-
-      <p><strong>Count:</strong> {{ count }}</p>
-
-      <button class="btn btn-primary" @click="increase">Increase Count</button>
-
-      <hr />
-
-      <p>Open the console to see watcher timing differences.</p>
-    </div>
+    <hr />
   </div>
 </template>
-
-<style scoped></style>

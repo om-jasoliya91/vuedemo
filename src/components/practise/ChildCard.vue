@@ -15,6 +15,7 @@ defineExpose({
 
 // defineProps() is used to receive data (props) from the parent component inside a child component.
 const props = defineProps({
+  data: Object,
   name: String,
   score: Number,
   title: String,
