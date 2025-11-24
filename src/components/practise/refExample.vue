@@ -2,10 +2,12 @@
 import { ref, onMounted, useTemplateRef } from 'vue'
 
 const input = useTemplateRef('my-input')
+const items = useTemplateRef('items')
 
 onMounted(() => {
   // The main use of focus() is to make an input element active so the user can start typing without clicking.
   input.value.focus()
+  items.value
   // document.activeElement := It returns the element where the cursor is currently active,
   // or the element that the user last clicked or typed in.
   // console.log('Is Focused?', document.activeElement === input.value)

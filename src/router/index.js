@@ -16,6 +16,7 @@ import ClickButton from '@/components/viewfile/ClickButton.vue'
 import RegisterView from '@/components/pages/RegisterView.vue'
 import LoginComponent from '@/components/pages/LoginComponent.vue'
 import DashboardView from '@/components/pages/DashboardView.vue'
+import LifeCycleview from '@/components/viewfile/LifeCycleview.vue'
 
 const routes = [
   { path: '/', name: 'Welcome', component: WelcomeBack },
@@ -35,6 +36,7 @@ const routes = [
   { path: '/register', name: 'Register', component: RegisterView },
   { path: '/login', name: 'login', component: LoginComponent },
   { path: '/dashboard', name: 'dashboard', component: DashboardView },
+  { path: '/lifecycle', name: 'lifecycle', component: LifeCycleview },
 ]
 
 const router = createRouter({
